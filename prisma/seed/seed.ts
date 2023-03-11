@@ -69,7 +69,7 @@ async function main() {
     console.log('imported categories!\n')
     await executeInsertData(insertAccount, "prisma/data/accounts.csv");
     console.log('imported accounts!\n')
-    await executeInsertData(insertTransaction, "prisma/data/transactions_test.csv");
+    await executeInsertData(insertTransaction, "prisma/data/transactions.csv");
     console.log('imported transactions!\n')
 
     console.log('Seeding done!')
