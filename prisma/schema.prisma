@@ -1,0 +1,35 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+  relationMode = "prisma"
+}
+
+model account {
+  id          String        @id
+  name        String
+  bank        String
+  transaction transactions[]
+}
+
+model categories {
+  id          String        @id
+  name        String
+  color       String?
+  transaction transactions[]
+}
+
+model transactions {
+  id         String    @id
+  account    account?  @relation(fields: [accountId], references: [id])
+  accountId  String?
+  category   categories? @relation(fields: [categoryId], references: [id])
+  categoryId String? 
+  reference  String @default("No reference")
+  date       String?
+  amount     String?
+  currency   String?
+}
