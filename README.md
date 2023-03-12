@@ -15,10 +15,11 @@ In order to use this repository, you will need to have the following installed:
 
 ## Getting Started
 
-1. Clone the repository
+1. Clone the repository and rename.env.example to .env; the .env file example has an already exisiting sample locla environment variables set up and to speed up getting the application up and running, just rename it to .env. Of course one can go through the code and see where which variable is being used and changed to the desired value if one wants.
 
 ```
 $ git clone git@github.com:itskush/finance_transaction.git
+$ rename .env.example to .env
 ```
 
 2. Command to initialize packages and docker, run the command below firstly. Assuming you have installed node and npm and docker this will install the npm packages, and then it will set up a docket container with postgres. Leave that terminal running as we will need it for the second part.
