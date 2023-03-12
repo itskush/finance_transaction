@@ -28,20 +28,32 @@ const router = useRouter();
 const goBack = () => {
     router.push(`/`)
 }
+
+const addCategory = () =>{
+    let myDialog = document.getElementById("categoryModal");
+    myDialog.showModal();
+}
+
 </script>
 <template>
     <div class="app-container">
         <div class="container">
-
             <body class="antialiased bg-gray-200 font-sans">
                 <div class="max-w-6xl mx-auto">
                     <div class="flex flex-col items-center justify-center min-h-screen">
-                        <button @click="goBack" class="z-10 p-3 bg-gray-100 rounded-full shadow-md animate-bounce mx-auto">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-                                <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
-                                    stroke-width="2" d="m10 19l-7-7m0 0l7-7m-7 7h18" />
-                            </svg>
-                        </button>
+                        <div class="flex flex-row items-center w-1/3 justify-between">
+                            <div>
+                                <button @click="goBack" class="z-10 p-3 bg-gray-100 rounded-full shadow-md mx-auto">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                                        <path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"
+                                            stroke-width="2" d="m10 19l-7-7m0 0l7-7m-7 7h18" />
+                                    </svg> 
+                                </button>
+                            </div>
+                            <AddCategoryModal></AddCategoryModal>
+                           
+                        </div>
+                        
                         <div class="max-w-sm w-full sm:w-1/2 lg:min-w-max py-6 px-3">
                             <div class="bg-white shadow-xl rounded-lg overflow-hidden">
                                 <div class="p-4">
@@ -55,9 +67,7 @@ const goBack = () => {
                                 </div>
                                 <div class="flex flex-col p-4 border-t border-gray-300 text-gray-700">
                                     <div class="flex-1 inline-flex items-center">
-                                        <p> Reference: <span class="text-gray-900 font-bold">{{
-                                            data.singleTransaction.reference ? data.singleTransaction.reference : 'No
-                                                                                        Reference'}} </span></p>
+                                        <p> Reference: <span class="text-gray-900 font-bold">{{ data.singleTransaction.reference ? data.singleTransaction.reference : 'No Reference'}} </span></p>
                                     </div>
                                     <br />
                                     <div class="flex-1 inline-flex items-center">
@@ -79,7 +89,6 @@ const goBack = () => {
                 </div>
             </body>
         </div>
-
     </div>
 </template>
 
