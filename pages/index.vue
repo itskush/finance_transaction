@@ -7,7 +7,7 @@ const searchFilter = (event : any) => {
 
 <template>
     <div class="app-container">
-        <div class="container">
+        <div class="container  bg-gray-200">
             <section class="container mx-auto p-6 font-mono">
                 <div class="w-full mb-8 overflow-hidden rounded-lg shadow-lg">
                     <div class="w-full overflow-x-auto">
@@ -39,7 +39,6 @@ const searchFilter = (event : any) => {
             <TableView />
             <br />
             <footer class="p-4 bg-white  shadow md:px-6 md:py-8 dark:bg-white-900">
-                <hr class="my-6 border-gray-200 sm:mx-auto dark:border-black-700 lg:my-8" />
                 <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© Financials All Rights
                     Reserved.
                 </span>
