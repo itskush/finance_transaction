@@ -102,7 +102,6 @@ const createCategory = async () => {
 	height: 400px;
 
 	header {
-
 		h4 {
 			font-size: 1.5rem;
 			font-weight: 500;
@@ -199,13 +198,11 @@ a {
 	align-items: center;
 	justify-content: center;
 	font-weight: 500;
-	background-color: #0b42c3;
 	font-size: 1.125rem;
-	border-radius: 0.75rem;
 	transition: background-color 0.3s cubic-bezier(0, 0, 0.2, 1);
 
 	&:hover {
-		background-color: #05299e;
+		background-color: #313134;
 	}
 }
 
