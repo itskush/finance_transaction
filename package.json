@@ -29,13 +29,20 @@
     "@nuxtjs/tailwindcss": "^6.4.1",
     "@prisma/client": "^4.11.0",
     "@types/papaparse": "^5.3.7",
+    "@vue/apollo-composable": "^4.0.0-beta.4",
     "apollo-server": "^3.12.0",
     "csv-parse": "^5.3.6",
     "csv-parser": "^3.0.0",
     "fast-csv": "^4.3.6",
     "mitt": "^3.0.0",
+    "nuxt-tailvue": "^1.0.95",
     "papaparse": "^5.4.0",
     "pg": "^8.10.0",
-    "vue-apollo": "^3.1.0"
+    "sass": "^1.59.2",
+    "sass-loader": "^13.2.0",
+    "vue-toast-notification": "^3.1.1"
+  },
+  "overrides": {
+    "vue": "3"
   }
 }

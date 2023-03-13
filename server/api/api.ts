@@ -5,14 +5,19 @@ const prisma = new PrismaClient();
 
 const typeDefs = `
     type Mutation {
-        changeTransactionCategory(id: String!): Transaction
+        updateTransaction(data: TransactionInput!): Transaction
         addCategory(data: CategoryInput!): Category!
     }
 
     input CategoryInput {
         id: String
-        name: String
-        color: String!
+        name: String!
+        color: String
+    }
+
+    input TransactionInput {
+        id: String!
+        categoryId: String!
     }
 
     type Category {
@@ -42,7 +47,7 @@ const typeDefs = `
     }
 
     type Query {
-        allCategories: [Category!]!
+        getCategories: [Category!]!
         allAccounts: [Account!]!
         getTransactions(offset: Int, limit: Int): [Transaction!]!
         singleTransaction(id: String): Transaction
@@ -51,7 +56,7 @@ const typeDefs = `
 
 const resolvers = {
     Query: {
-        allCategories: () => {
+        getCategories: () => {
             return prisma.categories.findMany();
         },
         getTransactions: (parent : any, args : {offset : number, limit: number}) => {
@@ -83,27 +88,30 @@ const resolvers = {
           return prisma.categories.create({
             data: {
               name: args.data.name,
-              id: args.data.id,
               color: args.data.color,
             },
           })
         },
-        changeTransactionCategory: (_parent : any, args : { data : CategoryInput }) => {
-            return prisma.categories.create({
+        updateTransaction: (_parent : any, args : { data : TransactionInput }) => {
+            return prisma.transactions.update({
               data: {
-                name: args.data.name,
-                id: args.data.id,
-                color: args.data.color,
+                categoryId: args.data.categoryId,
               },
+              where:{ id: args.data.id,}
             })
           },
     }
 };
 
 interface CategoryInput {
-    id: string
+    id?: string
     name: string
     color?: string
+}
+
+interface TransactionInput {
+    id?: string
+    categoryId?: string
 }
 
 const server = new ApolloServer({ resolvers, typeDefs });
