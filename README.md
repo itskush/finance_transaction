@@ -40,8 +40,6 @@ $ npm run intidev
 
 * Add tests (jest)
 * Add option to add transaction
-*  ~~Add option to edit transaction ~~
-*  ~~Add option to add category ~~
+ ~~Add option to edit transaction ~~
+ ~~Add option to add category ~~
 * Add filter for the data (code commented out for now as there was some bug issue coming up)
-
-```
