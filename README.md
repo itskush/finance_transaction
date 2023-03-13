@@ -12,7 +12,7 @@ In order to use this repository, you will need to have the following installed:
 
 * [Node.js](https://nodejs.org/en/)
 * [Docker](https://www.docker.com/)
-
+Note: you need to have docker desktop running before you start the using the app.
 ## Getting Started
 
 1. Clone the repository and rename.env.example to .env; the .env file example has an already exisiting sample locla environment variables set up and to speed up getting the application up and running, just rename it to .env. Of course one can go through the code and see where which variable is being used and changed to the desired value if one wants.
