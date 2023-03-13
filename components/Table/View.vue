@@ -1,7 +1,6 @@
 <script setup>
-
-const { $listen } = useNuxtApp()
-
+// import { useQuery } from '@vue/apollo-composable'
+// import { gql } from "@apollo/client/core"
 const query = gql`
 query GetTransactions($offset: Int!, $limit: Int!) {
   getTransactions(offset: $offset, limit: $limit) {

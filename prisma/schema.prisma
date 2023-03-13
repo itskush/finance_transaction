@@ -9,21 +9,21 @@ datasource db {
 }
 
 model account {
-  id          String        @id
+  id          String        @id @default(uuid())
   name        String
   bank        String
   transaction transactions[]
 }
 
 model categories {
-  id          String        @id
+  id          String        @id @default(uuid())
   name        String
   color       String?
   transaction transactions[]
 }
 
 model transactions {
-  id         String    @id
+  id         String    @id @default(uuid())
   account    account?  @relation(fields: [accountId], references: [id])
   accountId  String?
   category   categories? @relation(fields: [categoryId], references: [id])

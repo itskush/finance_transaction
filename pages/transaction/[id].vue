@@ -1,5 +1,7 @@
 <script setup>
 const route = useRoute();
+const { $listen } = useNuxtApp()
+
 const query = gql`
 query SingleTransaction($singleTransactionId: String) {
   singleTransaction(id: $singleTransactionId) {
@@ -21,7 +23,7 @@ query SingleTransaction($singleTransactionId: String) {
 const variables = {
     singleTransactionId: route.params.id
 }
-const { data } = await useAsyncQuery(query, variables)
+const { data, refresh} = await useAsyncQuery(query, variables)
 
 const router = useRouter();
 
@@ -29,11 +31,9 @@ const goBack = () => {
     router.push(`/`)
 }
 
-const addCategory = () =>{
-    let myDialog = document.getElementById("categoryModal");
-    myDialog.showModal();
-}
-
+$listen("updatedTransaction", () => {
+    refresh();
+});
 </script>
 <template>
     <div class="app-container">
@@ -50,7 +50,7 @@ const addCategory = () =>{
                                     </svg> 
                                 </button>
                             </div>
-                            <AddCategoryModal></AddCategoryModal>
+                            <AddCategory></AddCategory>
                            
                         </div>
                         
@@ -78,15 +78,15 @@ const addCategory = () =>{
                                                     data.singleTransaction.category?.name : 'No Categories' }}</span></p>
                                     </div>
                                 </div>
-                                <div
-                                    class="px-4 pt-3 pb-4 border-t border-gray-300 bg-gray-100 flex flex-row justify-center">
-                                    <button
-                                        class="font-bold py-2 px-4 rounded w-40 bg-blue-200 hover:bg-blue-100 text">Edit</button>
+                                <div class="px-4 pt-3 pb-4 border-t border-gray-300 bg-gray-100 flex flex-row justify-center">
+                                    <TransactionEdit></TransactionEdit>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+               
+
             </body>
         </div>
     </div>
