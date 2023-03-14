@@ -1,9 +1,10 @@
 <script setup lang="ts">
+const { $listen } = useNuxtApp()
 const editVisible = useState('editVisible', () => false)
 const setClosed = () => { editVisible.value = !editVisible.value }
 const route = useRoute()
 const { $event } = useNuxtApp();
-
+const { $toast } = useNuxtApp();
 const mutation = gql`
 mutation UpdateTransaction($data: TransactionInput!) {
   updateTransaction(data: $data) {
@@ -27,13 +28,10 @@ const categorySelected = {
 	}
 };
 
-const { data } = useAsyncQuery(query);
+const { data, refresh } = useAsyncQuery(query);
 const { mutate: editTransaction } = useMutation(mutation, categorySelected);
-const { $toast } = useNuxtApp();
 
 const updateTransaction = async () => {
-	console.log(categorySelected);
-
 	if (categorySelected.data.categoryId.trim() === "") return;
 	try {
 		await editTransaction(categorySelected);
@@ -42,15 +40,20 @@ const updateTransaction = async () => {
 		$event('updatedTransaction')
 		setClosed();
 	} catch (error) {
-		console.log({ error });
 		$toast.error('There was an error updating the transaction, please try again');
 	}
 }
+
+$listen('addedCategory',() => {
+	refresh()
+});
 </script>
 <template>
 	<div>
 
-		<button class="focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 focus:outline-none py-2 px-7 bg-gray-800 text-white rounded text-base hover:bg-black" @click="setClosed">Edit</button>
+		<button
+			class="focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 focus:outline-none py-2 px-7 bg-gray-800 text-white rounded text-base hover:bg-black"
+			@click="setClosed">Edit</button>
 
 		<div class="modal fixed z-10 overflow-y-auto top-0 w-full left-0 right-0 mt-20" v-if="editVisible">
 
@@ -78,9 +81,13 @@ const updateTransaction = async () => {
 
 			<div class="flex flex-row gap-2 justify-space">
 
-				<button type="button" class="btn-primary focus:outline-none py-2 px-7 bg-gray-800 text-white rounded text-base hover:bg-black" @click="setClosed"><i class="fas fa-times"></i> Cancel</button>
+				<button type="button"
+					class="btn-primary focus:outline-none py-2 px-7 bg-gray-800 text-white rounded text-base hover:bg-black"
+					@click="setClosed"><i class="fas fa-times"></i> Cancel</button>
 
-				<button type="button" class="btn-primary focus:outline-none py-2 px-7 bg-gray-800 text-white rounded text-base hover:bg-black" @click="updateTransaction">Update Transaction</button>
+				<button type="button"
+					class="btn-primary focus:outline-none py-2 px-7 bg-gray-800 text-white rounded text-base hover:bg-black"
+					@click="updateTransaction">Update Transaction</button>
 
 			</div>
 
@@ -203,6 +210,7 @@ a {
 	font-weight: 500;
 	font-size: 1.125rem;
 	transition: background-color 0.3s cubic-bezier(0, 0, 0.2, 1);
+
 	&:hover {
 		background-color: #454546;
 	}
@@ -212,5 +220,4 @@ input {
 	width: 1rem;
 	margin: 0;
 	flex-shrink: 0;
-}
-</style>
+}</style>

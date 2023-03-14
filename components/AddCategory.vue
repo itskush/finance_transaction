@@ -1,9 +1,7 @@
-<!-- Using mutation has issues currently with nuxt/apollo see https://github.com/nuxt-modules/apollo/issues/444-->
-
 <script setup land="ts">
-
+const { $event } = useNuxtApp()
+const { $toast } = useNuxtApp();
 const visible = useState('visible', () => false)
-
 const setClosed = () => { visible.value = !visible.value }
 
 const mutation = gql`
@@ -22,33 +20,26 @@ const variables = {
   }
 };
 
-
 const { mutate: addCategory } = useMutation(mutation, variables);
-const { $toast } = useNuxtApp();
 const createCategory = async () => {
   if (variables.data.name.trim() === "") return;
   try {
-    // call addCategory function to add comment
-    const { data } = await addCategory(variables);
-
-    // reset variables category body
+    await addCategory(variables);
     variables.data.name = "";
     variables.data.color = "";
     $toast.success('Category added successfully');
+	$event('addedCategory')
     setClosed();
   } catch (error) {
-    console.log({ error });
     $toast.error('There was an error adding the category, please try again');
-
   }
-
 };
 </script>
 <template>
   <div class=" flex justify-center items-center">
 
     <button @click="setClosed"
-      class="focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 focus:outline-none py-2 px-7 bg-gray-800 text-white rounded text-base hover:bg-black">Add
+      class="focus:ring-2 focus:ring-offset-2 focus:ring-gray-800 focus:outline-none py-2 px-7 bg-gray-800 text-white rounded text-base">Add
       Category</button>
     <div class="modal fixed z-10 overflow-y-auto top-0 w-full left-0 right-0 mt-20" v-if="visible">
       <div class="flex flex-row gap-2 justify-space">
@@ -199,8 +190,9 @@ a {
 	justify-content: center;
 	font-weight: 500;
 	font-size: 1.125rem;
+	background-color: #1b1b1d;
 	transition: background-color 0.3s cubic-bezier(0, 0, 0.2, 1);
-
+	border-radius: 0.35rem;
 	&:hover {
 		background-color: #313134;
 	}
